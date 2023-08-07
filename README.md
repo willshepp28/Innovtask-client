@@ -1,3 +1,6 @@
+![innovtask (1)](https://github.com/willshepp28/Innovtask-client/assets/28759252/5ce4aa05-edd5-4b6b-8165-3911d702cfa0)
+
+
 # Innovtask
 
 Innovtask is an interactive task management web application, where users can signup, login, and add, delete, and track their tasks. The application also supports subtasks - when all subtasks are complete, the main task is marked as complete.
@@ -37,11 +40,3 @@ Ensure you have the following installed on your local machine:
 - [Yarn](https://classic.yarnpkg.com/en/docs/install)
 - [PostgreSQL](https://www.postgresql.org/download/)
 
-## Installation
-
-To get started:
-
-1. Clone the repository:
-```bash
-git clone https://github.com/[Your-Username]/Innovtask.git
-cd Innovtask
