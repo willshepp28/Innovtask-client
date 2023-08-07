@@ -1,51 +1,66 @@
-import { useState } from "react"
+import { useState } from "react";
 
 export default function Signup() {
-    const [formData, setFormData] = useState({
-        email: '',
-        firstName: '',
-        lastName: '',
-        password: ''
-    });
+  const [formData, setFormData] = useState({
+    email: "",
+    firstName: "",
+    lastName: "",
+    password: "",
+  });
 
-    return (
-        <div>
-            <h2>Signup for Innovtask</h2>
-            <form onSubmit={() => console.log('submit')}>
-                <input
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    placeholder="Email"
-                    onChange={() => console.log('changed email')}
-                    required 
-                />
-                <input
-                    name="firstName"
-                    type="text"
-                    value={formData.firstName}
-                    placeholder="First Name"
-                    onChange={() => console.log('changed first name')}
-                    required 
-                />
-                <input
-                    name="lastName"
-                    type="text"
-                    value={formData.lastName}
-                    placeholder="Last Name"
-                    onChange={() => console.log('changed last name')}
-                    required 
-                />
-                <input
-                    name="password"
-                    type="password"
-                    value={formData.password}
-                    placeholder="Password"
-                    onChange={() => console.log('changed passwrd')}
-                    required 
-                />
-                <button type="submit">Sign Up</button>
-            </form>
-        </div>
-    )
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormData((previousData) => ({
+        ...previousData,
+        [name]: value
+    }))
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    console.log(event);
+  }
+
+  return (
+    <div>
+      <h2>Signup for Innovtask</h2>
+      <form onSubmit={(event) => handleSubmit(event)}>
+        <input
+          name="email"
+          type="email"
+          value={formData.email}
+          placeholder="Email"
+          onChange={(event) => handleChange(event)}
+          required
+        />
+        <input
+          name="firstName"
+          type="text"
+          value={formData.firstName}
+          placeholder="First Name"
+          onChange={(event) => handleChange(event)}
+          required
+        />
+        <input
+          name="lastName"
+          type="text"
+          value={formData.lastName}
+          placeholder="Last Name"
+          onChange={(event) => handleChange(event)}
+          required
+        />
+        <input
+          name="password"
+          type="password"
+          value={formData.password}
+          placeholder="Password"
+          onChange={(event) => handleChange(event)}
+          required
+        />
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
+  );
 }
