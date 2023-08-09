@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import { isValidEmail, isValidName, isValidPassword } from "../utils/validators.utils";
 
 export default function Signup() {
@@ -8,6 +9,11 @@ export default function Signup() {
     lastName: "",
     password: "",
   });
+
+  useEffect(() => {
+    fetch("https://innovtask-a99836e4b78a.herokuapp.com/")
+      .then((r) => console.log(r))
+  })
   const [formErrors, setFormErrors] = useState({});
 
   const handleChange = (event) => {
@@ -23,10 +29,6 @@ export default function Signup() {
     event.preventDefault();
 
     let errors = {};
-
-    if (!isValidEmail(formData.email)) {
-      errors.email = "Invalid email format";
-    }
 
     if (!isValidName(formData.firstName)) {
       errors.firstName = "First name can only contain letters, hyphens, apostrophes, and spaces";
@@ -51,7 +53,7 @@ export default function Signup() {
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
       <div className="signup-form border grey-border p-5 rounded">
-        <h2 className="text-center mt-5">Signup for Innovtask</h2>
+        <h3 className="text-center mt-5">Signup</h3>
         <form className="mt-4" onSubmit={(event) => handleSubmit(event)}>
           <div className="mb-3 ">
             <input
@@ -60,10 +62,9 @@ export default function Signup() {
               value={formData.email}
               placeholder="Email"
               onChange={(event) => handleChange(event)}
-              className="grey-border"
+              className="form-control"
               required
             />
-            {formErrors.email && <div className="text-danger">{formErrors.email}</div>}
           </div>
           <div className="mb-3">
             <input
@@ -72,7 +73,7 @@ export default function Signup() {
               value={formData.firstName}
               placeholder="First Name"
               onChange={(event) => handleChange(event)}
-              className="grey-border"
+              className="form-control"
               required
             />
             {formErrors.firstName && <div className="text-danger">{formErrors.firstName}</div>}
@@ -84,7 +85,7 @@ export default function Signup() {
               value={formData.lastName}
               placeholder="Last Name"
               onChange={(event) => handleChange(event)}
-              className="grey-border"
+              className="form-control"
               required
             />
             {formErrors.lastName && <div className="text-danger">{formErrors.lastName}</div>}
@@ -96,7 +97,7 @@ export default function Signup() {
               value={formData.password}
               placeholder="Password"
               onChange={(event) => handleChange(event)}
-              className="grey-border"
+              className="form-control"
               required
             />
             {formErrors.password && <div className="text-danger">{formErrors.password}</div>}
