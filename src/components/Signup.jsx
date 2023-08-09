@@ -1,6 +1,6 @@
 
-import { useEffect, useState } from "react";
-import { isValidEmail, isValidName, isValidPassword } from "../utils/validators.utils";
+import { useState } from "react";
+import { isValidName, isValidPassword } from "../utils/validators.utils";
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -10,12 +10,6 @@ export default function Signup() {
     password: "",
   });
 
-  useEffect(() => {
-    const url = import.meta.env.VITE_API_ENDPOINT;
-
-    fetch(url)
-      .then((r) => console.log(r))
-  })
   const [formErrors, setFormErrors] = useState({});
 
   const handleChange = (event) => {
@@ -27,7 +21,7 @@ export default function Signup() {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
 
     let errors = {};
@@ -48,9 +42,33 @@ export default function Signup() {
 
     if (Object.keys(errors).length === 0) {
       console.log("Form data submitted:", formData);
+      try {
+        const url = `${import.meta.env.VITE_API_ENDPOINT}authenticate/signup`;
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+  
+        const data = await response.json();
+        console.log("Server response:", data);
+        if (response.ok) {
+          // Handle successful signup (maybe redirect or show a success message)
+        } else {
+          // Handle server-side errors (maybe show a notification to the user)
+        }
+      } catch (error) {
+        console.error("Error during signup:", error);
+        // Handle client-side errors (like network issues)
+      }
       // Here you can handle the form submission, like sending the data to your backend
     }
   };
+
+
+
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
