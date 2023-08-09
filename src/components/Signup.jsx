@@ -11,7 +11,9 @@ export default function Signup() {
   });
 
   useEffect(() => {
-    fetch("https://innovtask-a99836e4b78a.herokuapp.com/")
+    const url = import.meta.env.VITE_API_ENDPOINT;
+
+    fetch(url)
       .then((r) => console.log(r))
   })
   const [formErrors, setFormErrors] = useState({});
