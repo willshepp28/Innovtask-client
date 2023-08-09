@@ -1,22 +1,21 @@
+// PrivateRoute.js
+
+
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthentication } from '../contexts/AuthenticationContext';
-import { useEffect } from 'react';
 
 function PrivateRoute({ children }) {
   const navigate = useNavigate();
-  const { authenticationToken } = useAuthentication();
+  const { isAuthenticated } = useAuthentication();  // get authentication status from context or any other source
 
   useEffect(() => {
-    if (!authenticationToken) {
-        navigate('/signup');
-      }
-  }, [ authenticationToken, navigate])
+    if (!isAuthenticated) {
+      navigate('/login');
+    }
+  }, [isAuthenticated, navigate]);
 
-  if (!authenticationToken) {
-    return null; // Render nothing if redirecting
-  }
-
-  return children;
+  return isAuthenticated ? children : null;  // render children if authenticated, otherwise render nothing
 }
 
 export default PrivateRoute;

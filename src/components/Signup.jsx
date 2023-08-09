@@ -1,132 +1,89 @@
-
-import { useState } from "react";
-import { isValidName, isValidPassword } from "../utils/validators.utils";
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { isValidName, isValidPassword } from '../utils/validators.utils';
+import { useNavigate } from 'react-router-dom';
 
 export default function Signup() {
-  const [formData, setFormData] = useState({
-    email: "",
-    firstName: "",
-    lastName: "",
-    password: "",
-  });
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate();
 
-  const [formErrors, setFormErrors] = useState({});
+    const onSubmit = async (data) => {
+        let submissionErrors = {};
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    setFormData((previousData) => ({
-      ...previousData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async(event) => {
-    event.preventDefault();
-
-    let errors = {};
-
-    if (!isValidName(formData.firstName)) {
-      errors.firstName = "First name can only contain letters, hyphens, apostrophes, and spaces";
-    }
-
-    if (!isValidName(formData.lastName)) {
-      errors.lastName = "Last name can only contain letters, hyphens, apostrophes, and spaces";
-    }
-
-    if (!isValidPassword(formData.password)) {
-      errors.password = "Password must have at least 8 characters, one uppercase, one lowercase, and one number";
-    }
-
-    setFormErrors(errors);
-
-    if (Object.keys(errors).length === 0) {
-      console.log("Form data submitted:", formData);
-      try {
-        const url = `${import.meta.env.VITE_API_ENDPOINT}authenticate/signup`;
-        const response = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        });
-  
-        const data = await response.json();
-        console.log("Server response:", data);
-        if (response.ok) {
-          // Handle successful signup (maybe redirect or show a success message)
-        } else {
-          // Handle server-side errors (maybe show a notification to the user)
+        if (!isValidName(data.firstName)) {
+            submissionErrors.firstName = "First name can only contain letters, hyphens, apostrophes, and spaces";
         }
-      } catch (error) {
-        console.error("Error during signup:", error);
-        // Handle client-side errors (like network issues)
-      }
-      // Here you can handle the form submission, like sending the data to your backend
-    }
-  };
 
+        if (!isValidName(data.lastName)) {
+            submissionErrors.lastName = "Last name can only contain letters, hyphens, apostrophes, and spaces";
+        }
 
+        if (!isValidPassword(data.password)) {
+            submissionErrors.password = "Password must have at least 8 characters, one uppercase, one lowercase, and one number";
+        }
 
+        if (Object.keys(submissionErrors).length === 0) {
+            try {
+                const url = `${import.meta.env.VITE_API_ENDPOINT}authenticate/signup`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
 
-  return (
-    <div className="d-flex justify-content-center align-items-center vh-100">
-      <div className="signup-form border grey-border p-5 rounded">
-        <h3 className="text-center mt-5">Signup</h3>
-        <form className="mt-4" onSubmit={(event) => handleSubmit(event)}>
-          <div className="mb-3 ">
-            <input
-              name="email"
-              type="email"
-              value={formData.email}
-              placeholder="Email"
-              onChange={(event) => handleChange(event)}
-              className="form-control"
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <input
-              name="firstName"
-              type="text"
-              value={formData.firstName}
-              placeholder="First Name"
-              onChange={(event) => handleChange(event)}
-              className="form-control"
-              required
-            />
-            {formErrors.firstName && <div className="text-danger">{formErrors.firstName}</div>}
-          </div>
-          <div className="mb-3">
-            <input
-              name="lastName"
-              type="text"
-              value={formData.lastName}
-              placeholder="Last Name"
-              onChange={(event) => handleChange(event)}
-              className="form-control"
-              required
-            />
-            {formErrors.lastName && <div className="text-danger">{formErrors.lastName}</div>}
-          </div>
-          <div className="mb-3">
-            <input
-              name="password"
-              type="password"
-              value={formData.password}
-              placeholder="Password"
-              onChange={(event) => handleChange(event)}
-              className="form-control"
-              required
-            />
-            {formErrors.password && <div className="text-danger">{formErrors.password}</div>}
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Sign Up
-          </button>
-        </form>
-      </div>
-    </div>
-  );
+                console.log(response.json())
+
+                if (response.ok) {
+                    navigate('/login');
+                } else {
+                    // Handle server-side errors
+                }
+            } catch (error) {
+                console.error("Error during signup:", error);
+            }
+        }
+    };
+
+    return (
+        <div className="d-flex justify-content-center align-items-center vh-100">
+            <div className="signup-form border grey-border p-5 rounded">
+                <h3 className="text-center mt-5">Signup</h3>
+                <form className="mt-4" onSubmit={handleSubmit(onSubmit)}>
+                    <div className="mb-3">
+                        <input {...register("email", { required: "Email is required" })}
+                            type="email"
+                            placeholder="Email"
+                            className="form-control" />
+                        {errors.email && <div className="text-danger">{errors.email.message}</div>}
+                    </div>
+                    <div className="mb-3">
+                        <input {...register("firstName", { required: "First name is required" })}
+                            type="text"
+                            placeholder="First Name"
+                            className="form-control" />
+                        {errors.firstName && <div className="text-danger">{errors.firstName.message}</div>}
+                    </div>
+                    <div className="mb-3">
+                        <input {...register("lastName", { required: "Last name is required" })}
+                            type="text"
+                            placeholder="Last Name"
+                            className="form-control" />
+                        {errors.lastName && <div className="text-danger">{errors.lastName.message}</div>}
+                    </div>
+                    <div className="mb-3">
+                        <input {...register("password", { required: "Password is required" })}
+                            type="password"
+                            placeholder="Password"
+                            className="form-control" />
+                        {errors.password && <div className="text-danger">{errors.password.message}</div>}
+                    </div>
+                    <button type="submit" className="btn btn-primary">
+                        Sign Up
+                    </button>
+                </form>
+            </div>
+        </div>
+    );
 }
