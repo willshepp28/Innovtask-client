@@ -5,8 +5,8 @@ module.exports = {
     "\\.(css|less)$": "identity-obj-proxy",
     "\\.(png|jpg|jpeg|gif|svg)$": "<rootDir>/__mocks__/fileMock.js",
   },
-  testEnvironment: 'jest-environment-jsdom',
+  testEnvironment: "jest-environment-jsdom",
   transform: {
-    "^.+\\.jsx?$": "babel-jest",
+    "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "<rootDir>/node_modules/babel-jest",
   },
 };

@@ -7,24 +7,36 @@ import NotFound from "./components/NotFound";
 import { AuthenticationProvider } from "./contexts/AuthenticationContext";
 import PrivateRoute from "./components/PrivateRoute";
 import Login from "./components/Login";
+import TaskDetails from "./components/TaskDetails";
 
 function App() {
   return (
     <AuthenticationProvider>
-    <Router>
-      <Routes>
-        <Route path="/" element={<h1>Home</h1>} />
-        <Route path="/login" element={<Login />}/>
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/dashboard" element={
-            <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
-          } />
+      <Router>
+        <Routes>
+          <Route path="/" element={<h1>Home</h1>} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/task/:id"
+            element={
+              <PrivateRoute>
+                <TaskDetails />
+              </PrivateRoute>
+            }
+          />
           {/* Add more PrivateRoutes as needed */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Router>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Router>
     </AuthenticationProvider>
   );
 }

@@ -1,4 +1,6 @@
-import { useForm } from 'react-hook-form';
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { useAuthentication } from "../contexts/AuthenticationContext";
 
 export default function Login() {
   const {
@@ -6,14 +8,16 @@ export default function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
+  const { login } = useAuthentication();
 
   const onSubmit = async (data) => {
     try {
       const url = `${import.meta.env.VITE_API_ENDPOINT}authenticate/login`; // Updated endpoint to login
       const response = await fetch(url, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
@@ -22,15 +26,11 @@ export default function Login() {
       console.log("Server response:", responseData);
 
       if (response.ok) {
-        // Store JWT and redirect to dashboard
-        localStorage.setItem('jwt', responseData.token); // assuming the token is returned as 'token' in the response
-        // Redirect to dashboard or any protected route
-      } else {
-        // Handle server-side errors
-      }
+        login(responseData.token);
+        navigate("/dashboard");
+      } 
     } catch (error) {
       console.error("Error during login:", error);
-      // Handle client-side errors like network issues
     }
   };
 
