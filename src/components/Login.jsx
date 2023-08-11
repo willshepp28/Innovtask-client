@@ -28,7 +28,7 @@ export default function Login() {
       if (response.ok) {
         login(responseData.token);
         navigate("/dashboard");
-      } 
+      }
     } catch (error) {
       console.error("Error during login:", error);
     }

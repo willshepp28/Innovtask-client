@@ -6,7 +6,7 @@ import { useAuthentication } from "../contexts/AuthenticationContext";
 
 function PrivateRoute({ children }) {
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuthentication(); 
+  const { isAuthenticated } = useAuthentication();
 
   useEffect(() => {
     if (!isAuthenticated) {

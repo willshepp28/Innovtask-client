@@ -61,7 +61,7 @@ export default function Signup() {
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
       <div className="signup-form border grey-border p-5 rounded">
-        <h3 className="text-center mt-5">Signup</h3>
+        <h4 className="text-center mt-5">Sign up for an account</h4>
         {submissionErrors.server && <div className="text-danger mb-3">{submissionErrors.server}</div>}
         <form className="mt-4" onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-3">

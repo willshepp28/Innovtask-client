@@ -76,7 +76,7 @@ export default function Dashboard() {
             <div className="card-body">
               <p className="card-text">{task.description}</p>
               <button className="btn btn-primary" onClick={() => navigate(`/task/${task.id}`)}>
-                See Subtasks
+                View Subtasks
               </button>
             </div>
           </div>

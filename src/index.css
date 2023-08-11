@@ -29,6 +29,13 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background: rgba(245, 247, 249, 0.8) !important;
+}
+
+.bold-span {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 32px;
 }
 
 h1 {
