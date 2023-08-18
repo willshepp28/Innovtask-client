@@ -6,9 +6,9 @@ export default function NavBar() {
     const { isAuthenticated, logout } = useAuthentication();
 
     return (
-        <nav className="navbar navbar-innovtask navbar-expand-lg navbar-light bg-light justify-content-between">
+        <nav className="navbar navbar-innovtask navbar-expand-lg navbar-light bg-light justify-content-between p-2">
         <Link className="navbar-brand" to="/">
-          Logo
+          InnovTask
         </Link>
         <div>
           <ul className="navbar-nav">
