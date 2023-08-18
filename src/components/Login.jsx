@@ -27,7 +27,7 @@ export default function Login() {
 
       if (response.ok) {
         login(responseData.token);
-        navigate("/dashboard");
+        navigate("/");
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -59,7 +59,7 @@ export default function Login() {
             />
             {errors.password && <div className="text-danger">{errors.password.message}</div>}
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn bt-bg-blue-green">
             Login
           </button>
         </form>

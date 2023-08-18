@@ -8,17 +8,18 @@ import { AuthenticationProvider } from "./contexts/AuthenticationContext";
 import PrivateRoute from "./components/PrivateRoute";
 import Login from "./components/Login";
 import TaskDetails from "./components/TaskDetails";
+import NavBar from "./components/Navbar";
 
 function App() {
   return (
     <AuthenticationProvider>
       <Router>
+        <NavBar />
         <Routes>
-          <Route path="/" element={<h1>Home</h1>} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route
-            path="/dashboard"
+            path="/"
             element={
               <PrivateRoute>
                 <Dashboard />

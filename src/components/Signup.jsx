@@ -55,14 +55,37 @@ export default function Signup() {
         console.error("Error during signup:", error);
         setSubmissionErrors({ ...submissionErrors, server: "An error occurred. Please try again later." });
       }
+    } else {
+      setSubmissionErrors(newSubmissionErrors);
     }
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100">
+    <div className="d-flex justify-content-center align-items-center vh-100 flex-column">
+      <div>
+        {submissionErrors.email && (
+          <div className="alert alert-danger" role="alert">
+            {submissionErrors.email}
+          </div>
+        )}
+        {submissionErrors.firstName && (
+          <div className="alert alert-danger" role="alert">
+            {submissionErrors.firstName}
+          </div>
+        )}
+        {submissionErrors.lastName && (
+          <div className="alert alert-danger" role="alert">
+            {submissionErrors.lastName}
+          </div>
+        )}
+        {submissionErrors.password && (
+          <div className="alert alert-danger" role="alert">
+            {submissionErrors.password}
+          </div>
+        )}
+      </div>
       <div className="signup-form border grey-border p-5 rounded">
         <h4 className="text-center mt-5">Sign up for an account</h4>
-        {submissionErrors.server && <div className="text-danger mb-3">{submissionErrors.server}</div>}
         <form className="mt-4" onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-3">
             <input
@@ -71,7 +94,6 @@ export default function Signup() {
               placeholder="Email"
               className="form-control"
             />
-            {errors.email && <div className="text-danger">{errors.email.message}</div>}
           </div>
           <div className="mb-3">
             <input
@@ -80,7 +102,6 @@ export default function Signup() {
               placeholder="First Name"
               className="form-control"
             />
-            {errors.firstName && <div className="text-danger">{errors.firstName.message}</div>}
           </div>
           <div className="mb-3">
             <input
@@ -89,7 +110,6 @@ export default function Signup() {
               placeholder="Last Name"
               className="form-control"
             />
-            {errors.lastName && <div className="text-danger">{errors.lastName.message}</div>}
           </div>
           <div className="mb-3">
             <input
@@ -98,9 +118,8 @@ export default function Signup() {
               placeholder="Password"
               className="form-control"
             />
-            {errors.password && <div className="text-danger">{errors.password.message}</div>}
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn bt-bg-blue-green">
             Sign Up
           </button>
         </form>

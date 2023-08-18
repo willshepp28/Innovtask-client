@@ -65,27 +65,53 @@ export default function Dashboard() {
 
   return (
     <>
-      <h1>Dashboard</h1>
+    <div className="d-flex flex-column justify-content-center mt-5 align-items-center">
+    <h1>Dashboard</h1>
+    <button className="btn bt-bg-blue-green mb-5 mt-6 create-task-button" onClick={() => setModalOpen(true)}>
+        Create Task
+    </button>
+    {tasks.length ? (
+        tasks.map((task) => (
+            <div className="row justify-content-center w-100">
+                <div className="card col-md-4 p-0 mb-4" key={task.id}>
+                    <h5 className="card-header">{task.title}</h5>
+                    <div className="card-body">
+                        <p className="card-text">{task.description}</p>
+                        <button className="btn bt-bg-blue-green" onClick={() => navigate(`/task/${task.id}`)}>
+                            View Task
+                        </button>
+                    </div>
+                </div>
+            </div>
+        ))
+    ) : (
+        <p>No tasks available</p>
+    )}
+</div>
+
+      {/* <h1>Dashboard</h1>
       <button className="btn btn-primary mb-4 mt-6 create-task-button" onClick={() => setModalOpen(true)}>
         Create Task
       </button>
       {tasks.length ? (
         tasks.map((task) => (
-          <div className="card p-0 mb-4" key={task.id}>
+          <div className="row">
+          <div className="card col-md-4 p-0 mb-4 " key={task.id}>
             <h5 className="card-header">{task.title}</h5>
             <div className="card-body">
               <p className="card-text">{task.description}</p>
               <button className="btn btn-primary" onClick={() => navigate(`/task/${task.id}`)}>
-                View Subtasks
+                View Task
               </button>
             </div>
+          </div>
           </div>
         ))
       ) : (
         <>
           <p>You have no tasks scheduled!</p>
         </>
-      )}
+      )} */}
 
       {isModalOpen && (
         <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>

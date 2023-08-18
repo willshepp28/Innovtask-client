@@ -27,9 +27,10 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
+  /* min-width: 320px; */
+  background: #F2F5F6 !important;
   min-height: 100vh;
-  background: rgba(245, 247, 249, 0.8) !important;
+  /* background: rgba(245, 247, 249, 0.8) !important; */
 }
 
 .bold-span {
